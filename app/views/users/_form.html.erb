@@ -13,61 +13,57 @@
   
 
   <div class="field">
-    <%= form.label :email %>
+    <%= form.label "E-mail address *" %>
     <%= form.text_field :email %>
   </div>
 
   <div class="field">
-    <%= form.label :first_name %>
+    <%= form.label "First Name *" %>
     <%= form.text_field :first_name %>
   </div>
 
   <div class="field">
-    <%= form.label :last_name %>
+    <%= form.label "Last Name *" %>
     <%= form.text_field :last_name %>
   </div>
 
   <div class="field">
-    <%= form.label :middle %>
+    <%= form.label "Middle Initial" %>
     <%= form.text_field :middle_name %>
   </div>
 
   <div class="field">
-    <%= form.label :driver_license %>
+    <%= form.label "Driver's License Number" %>
     <%= form.text_field :driver_license %>
   </div>
 
-  <div class="field">
-    <%= form.label :library_card_id %>
-    <%= form.text_field :library_card_id %>
-  </div>
 
   <div class="field">
-    <%= form.label :home_address %>
+    <%= form.label "Home Street Address *" %>
     <%= form.text_field :home_address %>
   </div>
 
   <div class="field">
-    <%= form.label :unit_number %>
+    <%= form.label "Apt/Unit Number" %>
     <%= form.text_field :unit_number %>
   </div>
 
   <div class="field">
-    <%= form.label :city %>
+    <%= form.label "City * " %>
     <%= form.text_field :city %>
   </div>
 
   <div class="field">
-    <%= form.label :zip %>
+    <%= form.label "Zip * " %>
     <%= form.text_field :zip %>
   </div>
 
   <div class="field">
-    <%= form.label :phone_number %>
+    <%= form.label "Phone Number * " %>
     <%= form.text_field :phone_number %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "SUBMIT YOUR APPLICATION"%>
   </div>
 <% end %>
