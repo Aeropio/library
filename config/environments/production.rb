@@ -67,13 +67,14 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-        :port =>           '587',
-        :address =>        'smtp.mandrillapp.com',
-        :user_name =>      'azra_aero',
-        :password =>       '5eebea5f14b3526cc7c1ff449bccf013-us4',
-        :domain =>         'mandrillapp.com',
-        :authentication => :plain
-    }
+   :address              => "smtp.gmail.com",
+   :port                 => 587,
+   :user_name            => 'azra.m@seanergydigital.com',
+   :password             => 'Qwerfty()&685NhSSS',
+   :authentication       => "plain",
+  :enable_starttls_auto => true
+  }
+  
     config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.default_url_options = { host: "herokuapp.com" }
