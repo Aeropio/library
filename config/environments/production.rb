@@ -70,7 +70,7 @@ Rails.application.configure do
         :port =>           '587',
         :address =>        'smtp.mandrillapp.com',
         :user_name =>      'azra_aero',
-        :password =>       'Mp8Lte-BS6bnG_g',
+        :password =>       '5eebea5f14b3526cc7c1ff449bccf013-us4',
         :domain =>         'mandrillapp.com',
         :authentication => :plain
     }
