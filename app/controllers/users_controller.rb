@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         #AdminMailer.notify_admin_email.deliver_now
-        UserMailer.with(user: @user).sign_up_notification.deliver_later
+        UserMailer.with(user: @user).sign_up_notification.deliver
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
   def approve_user
     user = User.where(email: params["email"]).last
-    UserMailer.with(user: user).approved_notification.deliver_later
+    UserMailer.with(user: user).approved_notification.deliver
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully approved.' }
       format.json { head :no_content }
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
 
   def reject_user
     user = User.where(email: params["email"]).last
-    UserMailer.with(user: user).rejected_notification.deliver_later
+    UserMailer.with(user: user).rejected_notification.deliver
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was rejected.' }
       format.json { head :no_content }
