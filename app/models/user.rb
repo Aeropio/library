@@ -5,7 +5,7 @@ class User < ApplicationRecord
   #        :recoverable, :rememberable, :validatable
   #Name, DOB, Phone, ID or Email exist in Database
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  validates :first_name, :last_name, :email, :phone_number, :home_address, :city, :zip, presence: true
+  validates :first_name, :email, :phone_number, :home_address, :city, :zip, presence: true
   validates :email, :phone_number, :first_name, uniqueness: true
   validates :email, format: {with: EMAIL_REGEX}
 end

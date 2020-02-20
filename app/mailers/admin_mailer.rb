@@ -3,7 +3,6 @@ class AdminMailer < ApplicationMailer
    
     def notify_admin_email
       @admin = User.where(is_admin: true).last
-      #@url  = 'http://example.com/login'
       mail(to: @admin.email, subject: 'Welcome to My Awesome Site')
     end
 end

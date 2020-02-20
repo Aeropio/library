@@ -23,18 +23,25 @@
   </div>
 
   <div class="field">
-    <%= form.label "Last Name *" %>
+    <%= form.label "Last Name" %>
     <%= form.text_field :last_name %>
   </div>
 
   <div class="field">
-    <%= form.label "Middle Initial" %>
-    <%= form.text_field :middle_name %>
+    <%= form.label "Date of Birth *" %>
+    <%= date_select "user", "dob", { start_year: 60.years.ago.year, end_year: Date.today.year, default: Date.today} %>
   </div>
 
   <div class="field">
-    <%= form.label "Driver's License Number" %>
-    <%= form.text_field :driver_license %>
+    <%= form.label "Identity Number" %>
+    <%= form.text_field :identity_number %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label "State *" %>
+    <% arr = %w(Alaska Alabama Arkansas American\ Samoa Arizona California Colorado Connecticut District\ of\ Columbia Delaware Florida Georgia Guam Hawaii Iowa Idaho Illinois Indiana Kansas Kentucky Louisiana Massachusetts Maryland Maine Michigan Minnesota Missouri Mississippi Montana North\ Carolina North\ Dakota Nebraska New\ Hampshire New\ Jersey New\ Mexico Nevada New\ York Ohio Oklahoma Oregon Pennsylvania Puerto\ Rico Rhode\ Island South\ Carolina South\ Dakota Tennessee Texas Utah Virginia Virgin\ Islands Vermont Washington Wisconsin West\ Virginia Wyoming) %>
+    <%= form.select :state, arr %>
   </div>
 
 
@@ -46,7 +53,8 @@
   <div class="field">
     <%= form.label "Apt/Unit Number" %>
     <%= form.text_field :unit_number %>
-  </div>
+ </div>
+
 
   <div class="field">
     <%= form.label "City * " %>

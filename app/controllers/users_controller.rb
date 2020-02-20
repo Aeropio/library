@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  # before_action :authenticate_admin!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -28,7 +29,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        AdminMailer.notify_admin_email.deliver_later
+        #AdminMailer.notify_admin_email.deliver_now
+        UserMailer.with(user: @user).sign_up_notification.deliver_now
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -58,6 +60,24 @@ class UsersController < ApplicationController
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def approve_user
+    user = User.where(email: params["email"]).last
+    UserMailer.with(user: user).approved_notification.deliver_later
+    respond_to do |format|
+      format.html { redirect_to users_url, notice: 'User was successfully approved.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def reject_user
+    user = User.where(email: params["email"]).last
+    UserMailer.with(user: user).rejected_notification.deliver_later
+    respond_to do |format|
+      format.html { redirect_to users_url, notice: 'User was rejected.' }
       format.json { head :no_content }
     end
   end

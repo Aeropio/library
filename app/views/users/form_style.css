@@ -1,0 +1,16 @@
+body {
+  margin: auto;
+  width: 50%;
+}
+
+label {
+      font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 7px;
+    margin-top: 7px;
+}
+
+input[type='text'] {
+  width: 50%;
+    height: 30px;
+}
