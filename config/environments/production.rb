@@ -64,6 +64,19 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "library_app_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+        :port =>           '587',
+        :address =>        'smtp.mandrillapp.com',
+        :user_name =>      'azra_aero',
+        :password =>       'Mp8Lte-BS6bnG_g',
+        :domain =>         'domain.com',
+        :authentication => :plain
+    }
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.default_url_options = { host: "monsite.com" }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
