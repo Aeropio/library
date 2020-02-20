@@ -13,61 +13,65 @@
   
 
   <div class="field">
-    <%= form.label :email %>
+    <%= form.label "E-mail address *" %>
     <%= form.text_field :email %>
   </div>
 
   <div class="field">
-    <%= form.label :first_name %>
+    <%= form.label "First Name *" %>
     <%= form.text_field :first_name %>
   </div>
 
   <div class="field">
-    <%= form.label :last_name %>
+    <%= form.label "Last Name" %>
     <%= form.text_field :last_name %>
   </div>
 
   <div class="field">
-    <%= form.label :middle %>
-    <%= form.text_field :middle_name %>
+    <%= form.label "Date of Birth *" %>
+    <%= date_select "user", "dob", { start_year: 60.years.ago.year, end_year: Date.today.year, default: Date.today} %>
   </div>
 
   <div class="field">
-    <%= form.label :driver_license %>
-    <%= form.text_field :driver_license %>
+    <%= form.label "Identity Number" %>
+    <%= form.text_field :identity_number %>
   </div>
 
-  <div class="field">
-    <%= form.label :library_card_id %>
-    <%= form.text_field :library_card_id %>
-  </div>
 
   <div class="field">
-    <%= form.label :home_address %>
+    <%= form.label "State *" %>
+    <% arr = %w(Alaska Alabama Arkansas American\ Samoa Arizona California Colorado Connecticut District\ of\ Columbia Delaware Florida Georgia Guam Hawaii Iowa Idaho Illinois Indiana Kansas Kentucky Louisiana Massachusetts Maryland Maine Michigan Minnesota Missouri Mississippi Montana North\ Carolina North\ Dakota Nebraska New\ Hampshire New\ Jersey New\ Mexico Nevada New\ York Ohio Oklahoma Oregon Pennsylvania Puerto\ Rico Rhode\ Island South\ Carolina South\ Dakota Tennessee Texas Utah Virginia Virgin\ Islands Vermont Washington Wisconsin West\ Virginia Wyoming) %>
+    <%= form.select :state, arr %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label "Home Street Address *" %>
     <%= form.text_field :home_address %>
   </div>
 
   <div class="field">
-    <%= form.label :unit_number %>
+    <%= form.label "Apt/Unit Number" %>
     <%= form.text_field :unit_number %>
-  </div>
+ </div>
+
 
   <div class="field">
-    <%= form.label :city %>
+    <%= form.label "City * " %>
     <%= form.text_field :city %>
   </div>
 
   <div class="field">
-    <%= form.label :zip %>
+    <%= form.label "Zip * " %>
     <%= form.text_field :zip %>
   </div>
 
   <div class="field">
-    <%= form.label :phone_number %>
+    <%= form.label "Phone Number * " %>
     <%= form.text_field :phone_number %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "SUBMIT YOUR APPLICATION"%>
   </div>
 <% end %>

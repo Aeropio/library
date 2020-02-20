@@ -34,14 +34,22 @@
         <td><%= user.city %></td>
         <td><%= user.zip %></td>
         <td><%= user.phone_number %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <form>
+            <%= link_to "Approve", approve_user_path(email: user.email) %>
+          </form>
+        </td>
+         <td>
+          <form>
+            <%= link_to "Reject", reject_user_path(email: user.email) %>
+          </form>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<form>
+  <%= link_to "Logout", destroy_admin_session_path %>
+</form>
 
 <br>
-
-<%= link_to 'New User', new_user_path %>
