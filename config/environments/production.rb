@@ -71,7 +71,7 @@ Rails.application.configure do
         :address =>        'smtp.mandrillapp.com',
         :user_name =>      'azra_aero',
         :password =>       'Mp8Lte-BS6bnG_g',
-        :domain =>         'domain.com',
+        :domain =>         'mandrillapp.com',
         :authentication => :plain
     }
     config.action_mailer.perform_deliveries = true
