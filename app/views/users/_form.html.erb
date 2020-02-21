@@ -5,7 +5,13 @@
 
       <ul>
       <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+       <% if message.include? "has already been taken" %>
+        <% end_index = message.index("has already been taken") %>
+        <% linked_to = message[0..end_index-2] %>
+         <li><%= "You already have Library Card linked to your #{linked_to}, please get a duplicate card from the library" %></li>    
+       <% else  %>
+         <li><%= message %></li>
+       <% end  %>
       <% end %>
       </ul>
     </div>
@@ -29,7 +35,7 @@
 
   <div class="field">
     <%= form.label "Date of Birth *" %>
-    <%= date_select "user", "dob", { start_year: 60.years.ago.year, end_year: Date.today.year, default: Date.today} %>
+    <%= date_select "dob", "dob", { start_year: 60.years.ago.year, end_year: Date.today.year, default: Date.today} %>
   </div>
 
   <div class="field">

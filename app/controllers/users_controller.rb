@@ -31,7 +31,7 @@ class UsersController < ApplicationController
       if @user.save
         #AdminMailer.notify_admin_email.deliver_now
         UserMailer.with(user: @user).sign_up_notification.deliver
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: 'Application submitted successfully.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -79,6 +79,18 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was rejected.' }
       format.json { head :no_content }
+    end
+  end
+
+  def get_county_name
+    if params["zip"] == '28202'
+      is_county = true
+    else
+      is_county = false
+    end
+    respond_to do |format|
+      #format.html { redirect_to users_url, notice: 'User was rejected.' }
+      format.json { render json: {is_county: is_county} }
     end
   end
 
