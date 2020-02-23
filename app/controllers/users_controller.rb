@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  # before_action :authenticate_admin!
+  before_action :authenticate_admin!, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+
 
   # GET /users
   # GET /users.json
@@ -94,6 +95,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def upload_identity_number
+    user = User.where(id: params[:id])
+    user.identity_number = params[:file]
+    user.save
+    respond_to do |format|
+      #format.html { redirect_to users_url, notice: 'User was rejected.' }
+      format.json { render json: {file_uploaded: "success"} }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -102,6 +113,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :middle_name, :driver_license, :library_card_id, :home_address, :unit_number, :city, :zip, :phone_number)
+      params.require(:user).permit(User.attribute_names)
     end
 end
