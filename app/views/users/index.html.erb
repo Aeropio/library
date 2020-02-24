@@ -1,113 +1,85 @@
-
-<!--Top Bar-->
-
-<div class="col-sm-6 Padding-None">
-<div class="User-div">
-<div class="User-div-left"><img src="img/Yop-User.png" width="42" height="42" alt=""></div>
-<div class="User-div-right">Admin Name</div>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-5">
+      <h3 class=" font-grey">LIST OF APPLICATIONS</h3>
+    </div>
+    <div class="col-4 offset-md-3">
+      
+      <div class="form-group row">
+        <label for="staticEmail" class="col-sm-6 col-form-label">Application Status</label>
+        <div class="col-sm-6">
+          <select class="form-control">
+            <option >Pending</option>
+            <option >Approved</option>
+            <option >Rejected</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<div class="modal fade" id="myModal_id_proof" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="width: 200%; left: -40%;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <img id="disply_image" src="" style="width:100%;" alt="ID Proof"/>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<div class="container">
+  <div class="row align-items-center">
+    <div class="col-12 white-container">
+      <table class="table table-striped">
+        <thead class="bg-grey">
+          <tr>
+            <th align="left" valign="middle" >Name</th>
+            <th  align="left" valign="middle" >Mobile #</th>
+            <th  align="left" valign="middle" >Email</th>
+            <th  align="left" valign="middle" >Card Type</th>
+            <th  align="center" valign="middle" >Resident</th>
+            <th  align="center" valign="middle" >ID Proof</th>
+            <th  align="center" valign="middle">Qualified</th>
+            <th>
+            </th>
+            <th>
+            </th>
+            
+          </tr>
+        </thead>
+      <tbody>
+        <% @users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= user.phone_number %></td>
+        <td><%= user.email %></td>
+        <td><%= "physical" %></td>
+        <td><img src="<%= asset_path 'Resident-Green.png' %>"></td>
+        <td><img src="<%= asset_path 'View.png' %>" data-toggle="modal" data-target="#myModal_id_proof" onclick="$('#disply_image').attr('src','<%=user.identity_number.url%>')"></td>
+        <td><img src="<%= asset_path 'Qualified.png' %>"></td>
+        <td><%= link_to approve_user_path(email: user.email) do %> 
+            <img src="<%= asset_path 'Tick1.png' %>">
+            <% end %>
+          </td>
+
+        <td><%= link_to reject_user_path(email: user.email) do %>  
+          <img src="<%= asset_path 'Cross.png' %>">
+          <% end %>
+        </td>  
+
+
+      </tr>
+    <% end %>
+
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<!--Top Bar End-->
-
-<!--Menu-->
-<div class="Menu-Div">
-<div class="Divforall">
-
-<ul>
-<li><a href="#" class="Application">Applications</a></li>
-<li><a href="Reports.html" class="Reports">Reports</a></li>
-</ul>
-
-</div>
-</div>
-<!--Menu End-->
-
-<!--Form Body-->
-<div class="Divforall">
-
-<div class="container-fluid">
-<div class="row Margin-none">
-<div class="col-sm-6"><h3 class="H3">List Of Applications</h3></div>
-<div class="col-sm-6">
-<div class="Status-div Margin-Bottom-20-1">
-<div class="Status-div-left">Status</div>
-<div class="Status-div-right"><select name="" class="Text-box">
-<option >Pending Application</option>
-<option >Approved Application</option>
-<option >Rejected Application</option>
-
-</select></div>
-</div>
-
-</div>
-</div>
-</div>
-
-<!--White Block-->
-<div class="White-Block">
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="Table-Grid">
-<tr>
-
-<th align="left" valign="middle" >Name</th>
-<th  align="left" valign="middle" >Mobile #</th>
-<th  align="left" valign="middle" >Email</th>
-<th  align="left" valign="middle" >Card Type</th>
-<th  align="center" valign="middle" >Resident</th>
-<th  align="center" valign="middle" >ID Proof</th>
-<th  align="center" valign="middle">Qualified</th>
-<th  align="left" valign="middle">&nbsp;</th>
-</tr>
-  <tr>
-    <td align="left" valign="middle">Aaron Poulin</td>
-    <td align="left" valign="middle">+41 21547896</td>
-    <td align="left" valign="middle">XYZ@Example.com</td>
-    <td align="left" valign="middle">Card Type</td>
-    <td align="Center" valign="middle"><img src="<%=asset_path('Resident-Green.png')%>" alt="" border="0"></td>
-    <td align="Center" valign="middle"><img src="<%=asset_path('View.png')%>" alt="" border="0"></td>
-     <td align="Center" valign="middle">&nbsp;</td>
-    <td align="center" valign="middle"> <a href="#" class="Icon-a"><img src="<%=asset_path('Tick1.png')%>" alt=""  border="0"></a> <a href="#"><img src="<%=asset_path('Cross.png')%>" alt="" border="0"></a></td>
-  </tr>
-  <tr>
-    <td align="left" valign="middle">Richard Ali</td>
-    <td align="left" valign="middle">+65 21547896</td>
-    <td align="left" valign="middle">XYZ@Example.com</td>
-    <td align="left" valign="middle">Card Type</td>
-    <td align="Center" valign="middle"><img src="img/Resident-Yellow.png" alt="" border="0"></td>
-    <td align="Center" valign="middle"><img src="img/View.png" alt="" border="0"></td>
-     <td align="Center" valign="middle"><img src="img/Qualified.png" alt="" border="0"></td>
-    <td align="center" valign="middle"> <a href="#" class="Icon-a"><img src="img/Tick1.png" alt=""  border="0"></a> <a href="#"><img src="img/Cross.png" alt="" border="0"></a></td>
-  </tr>
-  <tr>
-    <td align="left" valign="middle">Juan Clark</td>
-    <td align="left" valign="middle">+88 21547896</td>
-    <td align="left" valign="middle">XYZ@Example.com</td>
-    <td align="left" valign="middle">Card Type</td>
-    <td align="Center" valign="middle"><img src="img/Resident-Red.png" alt="" border="0"></td>
-    <td align="Center" valign="middle"><img src="img/View.png" alt="" border="0"></td>
-     <td align="Center" valign="middle"></td>
-    <td align="center" valign="middle"> <a href="#" class="Icon-a"><img src="img/Tick1.png" alt=""  border="0"></a> <a href="#"><img src="img/Cross.png" alt="" border="0"></a></td>
-  </tr>
-  <tr>
-    <td align="left" valign="middle">Albert Hull</td>
-    <td align="left" valign="middle">+21 21547896</td>
-    <td align="left" valign="middle">XYZ@Example.com</td>
-    <td align="left" valign="middle">Card Type</td>
-    <td align="Center" valign="middle"><img src="img/Resident-Green.png" alt="" border="0"></td>
-    <td align="Center" valign="middle"><img src="img/View.png" alt="" border="0"></td>
-     <td align="Center" valign="middle">&nbsp;</td>
-    <td align="center" valign="middle"> <a href="#" class="Icon-a"><img src="img/Tick1.png" alt=""  border="0"></a> <a href="#"><img src="img/Cross.png" alt="" border="0"></a></td>
-  </tr>
-   
-</table>
-
-
-</div>
-<!--White Block End-->
-
-</div>
-<form>
-  <%=link_to "Logout",destroy_admin_session_path,method: :delete, class:"nav-link"%>
-</form>
-<!--Form Body End-->

@@ -11,7 +11,13 @@
   </head>
 
   <body>
-    <%= render partial:  "shared/page_header" %>
-    <%= yield %>
+    <%= render "shared/page_header.html.erb"%>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-5 offset-md-3 py-5">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -21,7 +21,6 @@ body
 	width:100%;
 	display:block;
 	background-color:#ffffff;
-	border-bottom:#4e7cf6 10px solid;
 	padding:10px 0px;
 	}
 
@@ -173,7 +172,7 @@ body
 	background:#4e7cf6;
 	border-radius:5px;
 	text-decoration:none !important;
-	float:right;
+  float: right;
 	}
 .Submit:hover
 {
@@ -440,4 +439,58 @@ body
   font-size: 15px;
   padding: 10px;
   border-radius: 4px;
+}
+
+
+.login-form{
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 7px;
+    padding: 30px 30px;
+}
+
+.blue-button{
+  background-color: #36c7fe;
+  border-radius: 20px;
+  border: none !important;
+  padding: 10px 10px;
+}
+
+.login-form a {
+  color: #ff8136 !important;
+}
+.login-form a:visited {
+  color: #ff8136;
+}
+
+.form-control{
+  border-radius: 20px;
+}
+
+.bg-blue{
+  background-color: #4e7cf6;
+}
+.navbar a {
+  color: #d3e1fc !important;
+}
+
+.bg-grey {
+  background-color: #e7ebf4;
+}
+
+.font-16{
+  font-size: 16px;
+}
+.font-grey {
+  color: #788ab2;
+}
+.w-100 {
+  width: 100%;
+}
+
+.white-container{
+  margin: 0 auto;
+    background: #fff;
+    border-radius: 7px;
+    padding: 30px 30px;
 }
