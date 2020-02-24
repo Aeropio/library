@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.where(card_status:"pending")
   end
 
   # GET /users/1
@@ -67,6 +67,8 @@ class UsersController < ApplicationController
 
   def approve_user
     user = User.where(email: params["email"]).last
+    user.card_status = "approved"
+    user.save
     UserMailer.with(user: user).approved_notification.deliver
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully approved.' }
@@ -76,6 +78,8 @@ class UsersController < ApplicationController
 
   def reject_user
     user = User.where(email: params["email"]).last
+    user.card_status = "rejected"
+    user.save
     UserMailer.with(user: user).rejected_notification.deliver
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was rejected.' }
@@ -83,6 +87,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def reports
+  end
+  
   def get_county_name
     if params["zip"] == '28202'
       is_county = true

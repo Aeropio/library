@@ -8,6 +8,8 @@ class User < ApplicationRecord
 # 5) If All checks pass, show a message - Application submitted successfully and trigger an EMAIL
 
   mount_uploader :identity_number, AvatarUploader
+  mount_uploader :address_proof, PropertyUploader
+
 
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :first_name, :email, :phone_number, :home_address, :city, :zip, :dob, :last_name, :state, :primary_branch, presence: true
@@ -17,6 +19,8 @@ class User < ApplicationRecord
 
   def name_and_dob
     first_names_arr = User.pluck(:first_name)
+    first_names_arr.delete(first_name)
+
     dob_arr = User.pluck(:dob)
     if first_names_arr.include? first_name and dob_arr.include? dob
       errors.add(:first_name, "has already been taken")
