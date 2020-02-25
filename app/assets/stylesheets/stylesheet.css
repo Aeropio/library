@@ -161,7 +161,9 @@ body
 	font-size:16px;
 	color:#fff;
 	}
-	
+	.error{
+    color: red;
+  }
 .Submit
 {
 	padding:12px 35px;
@@ -198,7 +200,9 @@ body
 
 
 
-
+.error_messages_from_backend{
+  color: red;
+}
 
 
 
