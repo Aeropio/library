@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_admin!, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  #after_action :update_local_non_local_attributes,  only: [:create, :edit, :update]
 
 
   # GET /users
@@ -32,7 +33,8 @@ class UsersController < ApplicationController
       if @user.save
         #AdminMailer.notify_admin_email.deliver_now
         UserMailer.with(user: @user).sign_up_notification.deliver
-        format.html { redirect_to @user, notice: 'Application submitted successfully.' }
+        @user=User.new
+        format.html { render 'users/new', locals: {submit_success: true} }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -68,7 +70,7 @@ class UsersController < ApplicationController
   def approve_user
     user = User.where(email: params["email"]).last
     user.card_status = "approved"
-    user.save
+    user.save(validate:false)
     UserMailer.with(user: user).approved_notification.deliver
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully approved.' }
@@ -79,7 +81,7 @@ class UsersController < ApplicationController
   def reject_user
     user = User.where(email: params["email"]).last
     user.card_status = "rejected"
-    user.save
+    user.save(validate:false)
     UserMailer.with(user: user).rejected_notification.deliver
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was rejected.' }
@@ -91,8 +93,16 @@ class UsersController < ApplicationController
   end
   
   def get_county_name
-    if params["zip"] == '28202'
-      is_county = true
+    county_zips = %w[28031 28035 28036 28070 28078 28105 28106 28126 28130 28134]
+    zip_code = params["zip"]
+    if zip_code.length==5 
+      if zip_code == '28200'
+        is_county = false
+      elsif zip_code.start_with?('282') or county_zips.include? zip_code
+        is_county = true
+      else
+        is_county = false
+      end
     else
       is_county = false
     end
@@ -122,4 +132,9 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(User.attribute_names)
     end
+
+    # def update_local_non_local_attributes
+    #   user = User.where(params[:id]).last
+
+    # end
 end

@@ -35,6 +35,26 @@
       
     </div>
   </div>
+
+  <div class="modal fade" id="property_or_school_proof" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content" style="width: 200%; left: -40%;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <img id="disply_image_for_qualified" src="" style="width:100%;" alt="Property or School ID Proof"/>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
 <div class="container">
   <div class="row align-items-center">
     <div class="col-12 white-container">
@@ -61,10 +81,26 @@
         <td><%= user.first_name %></td>
         <td><%= user.phone_number %></td>
         <td><%= user.email %></td>
-        <td><%= "physical" %></td>
-        <td><img src="<%= asset_path 'Resident-Green.png' %>"></td>
-        <td><img src="<%= asset_path 'View.png' %>" data-toggle="modal" data-target="#myModal_id_proof" onclick="$('#disply_image').attr('src','<%=user.identity_number.url%>')"></td>
-        <td><img src="<%= asset_path 'Qualified.png' %>"></td>
+        
+        
+          <td><%= user.library_card_type %></td>
+        
+        <%if user.is_local || user.is_local.nil?%>
+          <td><img src="<%= asset_path 'Resident-Green.png' %>"></td>
+          <td><img src="<%= asset_path 'View.png' %>" data-toggle="modal" data-target="#myModal_id_proof" onclick="$('#disply_image').attr('src','<%=user.identity_number.url%>')"></td>
+          <td></td>
+        <%else%>
+          <%if user.has_property || user.in_school%>
+            <td><img src="<%= asset_path 'Resident-Yellow.png' %>"></td>
+          <td><img src="<%= asset_path 'View.png' %>" data-toggle="modal" data-target="#myModal_id_proof" onclick="$('#disply_image').attr('src','<%=user.identity_number.url%>')"></td>
+          <td><img src="<%= asset_path 'yellowview.png' %>" data-toggle="modal" data-target="#property_or_school_proof" onclick="$('#disply_image_for_qualified').attr('src','<%=user.address_proof.url%>')"></td>
+          <%else%>
+            <td><img src="<%= asset_path 'Resident-Red.png' %>"></td>
+          <td><img src="<%= asset_path 'View.png' %>" data-toggle="modal" data-target="#myModal_id_proof" onclick="$('#disply_image').attr('src','<%=user.identity_number.url%>')"></td>
+          <td></td>
+          <%end%>
+        <%end%>
+        
         <td><%= link_to approve_user_path(email: user.email) do %> 
             <img src="<%= asset_path 'Tick1.png' %>">
             <% end %>
