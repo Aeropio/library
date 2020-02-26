@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get 'users/reject_user' => 'users#reject_user', as: :reject_user
   get 'users/get_county_name' => 'users#get_county_name', as: :get_county_name
   get 'users/reports' => 'users#reports', as: :reports
-  
+  get 'users/approved_users_list' => 'users#approved_users_list', as: :approved_users_list
+  get 'users/rejected_users_list' => 'users#rejected_users_list', as: :rejected_users_list
+  get 'users/pending_users_list' => 'users#pending_users_list', as: :pending_users_list
   
   resources :users 
 
