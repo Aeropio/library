@@ -7,7 +7,36 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+        @status = 'pending'
+
     @users = User.where(card_status:"pending")
+  end
+
+  def approved_users_list
+        @status = 'approved'
+
+    @users = User.where(card_status:"approved")
+    respond_to do |format|
+     format.html { render :index , locals: {status: "Approved"}}
+     format.json { head :no_content }
+    end
+  end
+
+  def rejected_users_list
+    @status = 'rejected'
+    @users = User.where(card_status:"rejected")
+    respond_to do |format|
+     format.html { render :index , locals: {status: "Rejected"}}
+     format.json { head :no_content }
+    end
+  end
+
+  def pending_users_list
+    @users = User.where(card_status:"pending")
+    respond_to do |format|
+     format.html { render :index , locals: {status: "Pending"}}
+     format.json { head :no_content }
+    end
   end
 
   # GET /users/1
@@ -27,14 +56,18 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    date_birth = Date::strptime(user_params[:dob], "%m-%d-%y")
+    user_params[:dob] = date_birth
     @user = User.new(user_params)
+
 
     respond_to do |format|
       if @user.save
         #AdminMailer.notify_admin_email.deliver_now
         UserMailer.with(user: @user).sign_up_notification.deliver
-        @user=User.new
-        format.html { render 'users/new', locals: {submit_success: true} }
+        #@user=User.new
+        #format.html { render 'users/new', notice: 'Application was successfully submitted.'}
+        format.html { redirect_to @user, notice: 'Application submitted successfully.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }

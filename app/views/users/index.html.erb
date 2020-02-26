@@ -1,3 +1,5 @@
+<%status||="Pending"%>
+
 <div class="container py-5">
   <div class="row">
     <div class="col-5">
@@ -8,10 +10,10 @@
       <div class="form-group row">
         <label for="staticEmail" class="col-sm-6 col-form-label">Application Status</label>
         <div class="col-sm-6">
-          <select class="form-control">
-            <option >Pending</option>
-            <option >Approved</option>
-            <option >Rejected</option>
+          <select class="form-control application_status_select">
+            <option value="pending" <%= 'selected' if @status == 'pending' %>  > Pending </option>
+            <option value="approved" <%= 'selected' if @status == 'approved' %>>Approved</option>
+            <option value="rejected" <%= 'selected' if @status == 'rejected' %>>Rejected</option>
           </select>
         </div>
       </div>
@@ -95,7 +97,7 @@
           <td><img src="<%= asset_path 'View.png' %>" data-toggle="modal" data-target="#myModal_id_proof" onclick="$('#disply_image').attr('src','<%=user.identity_number.url%>')"></td>
           <td><img src="<%= asset_path 'yellowview.png' %>" data-toggle="modal" data-target="#property_or_school_proof" onclick="$('#disply_image_for_qualified').attr('src','<%=user.address_proof.url%>')"></td>
           <%else%>
-            <td><img src="<%= asset_path 'Resident-Red.png' %>"></td>
+            <td><img src="<%= asset_path 'nonlocal.png' %>"></td>
           <td><img src="<%= asset_path 'View.png' %>" data-toggle="modal" data-target="#myModal_id_proof" onclick="$('#disply_image').attr('src','<%=user.identity_number.url%>')"></td>
           <td></td>
           <%end%>
@@ -119,3 +121,20 @@
     </table>
   </div>
 </div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.application_status_select').on('change', function(){
+      if($(this).val() == 'pending'){
+        window.location.href =  '/users'
+      }
+      else
+      {
+              window.location.href = "/users/" + $(this).val() + '_users_list'
+
+      }
+    })
+  })
+
+</script>
