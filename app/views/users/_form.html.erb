@@ -251,7 +251,7 @@ $("#user_signup_form").validate();
   }
   function cal_fees(){
   //calculate age from dob
-  var birthDate=$('#dob_val').val();
+  var birthDate=$('#datepicker').val();
   //calculate age from dob_val
   // var mdate = birthDate.toString();
   // var yearThen = parseInt(mdate.substring(0,4), 10);
@@ -263,7 +263,7 @@ $("#user_signup_form").validate();
   // var age = today.getFullYear() - birthday.getFullYear();
   // var total_fees = "$0"
   //$45 (if age less than 62), $35 (is age is 62 or above), $0 (if yes above)
-  var birth_year = parseInt(mdate.substring(6,10));
+  var birth_year = parseInt(birthDate.substring(6,10));
   var curr_year = 2020
   var age = curr_year-birth_year;
   if(age>=62){
