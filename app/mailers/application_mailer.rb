@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'notifications@cm.com'
+  default from: 'CM Library <mecklenburglibrary@gmail.com>'
   layout 'mailer'
 end
