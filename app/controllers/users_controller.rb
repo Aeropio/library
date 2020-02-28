@@ -62,18 +62,17 @@ class UsersController < ApplicationController
 
 
     respond_to do |format|
-      if @user.save
-        #AdminMailer.notify_admin_email.deliver_now
-        UserMailer.with(user: @user).sign_up_notification.deliver
-        #@user=User.new
-        #format.html { render 'users/new', notice: 'Application was successfully submitted.'}
-        format.html { redirect_to @user, notice: 'Application submitted successfully.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        if @user.save
+          #AdminMailer.notify_admin_email.deliver_now
+          UserMailer.with(user: @user).sign_up_notification.deliver
+          @user=User.new
+          format.html { render 'users/new', locals: {submit_success: true} }
+          format.json { render :show, status: :created, location: @user }
+        else
+          format.html { render :new }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
-    end
   end
 
   # PATCH/PUT /users/1
