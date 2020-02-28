@@ -1,4 +1,10 @@
+  <link href= 
+'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
+          rel='stylesheet'> 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script src= 
+"https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" > 
+    </script> 
 <div class="modal fade in" id="submit_success_modal" role="dialog" style="display: none;">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
@@ -83,7 +89,7 @@
         <div class="col-sm-9">
           <div class="row Margin-none">
             <div class="col-sm-3 Margin-Bottom-20-1">
-              <%= form.date_field :dob , class: "date_field required", id: "dob_val", onchange: "cal_fees();"%>
+             <input type="text" readonly="readonly"  placeholder="mm-dd-yyyy" id="my_date_picker" class="Text-box" name=user[dob] onchange="cal_fees();" required="true"> 
               <div class="col-sm-2">
               <img src="img/Date.png" alt="" style="padding-top:10px;"></div>
             </div>
@@ -229,6 +235,14 @@
   </div>
   <!--Form Body End-->
   <script type="text/javascript">
+    $(function() { 
+    $( "#my_date_picker" ).datepicker({ 
+        dateFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-100:+0'
+    }); 
+}); 
   function checkZipStatus(){
   var zip_code=$('#zip_code').val();
   if(zip_code.length>=5)
