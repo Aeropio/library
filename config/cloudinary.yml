@@ -1,0 +1,18 @@
+development:
+  cloud_name: dmd1lfirl
+  api_key: '786365369745538'
+  api_secret: HUH8IPYSmoBHHrSAJgY3JoDOHGQ
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: dmd1lfirl
+  api_key: '786365369745538'
+  api_secret: HUH8IPYSmoBHHrSAJgY3JoDOHGQ
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: dmd1lfirl
+  api_key: '786365369745538'
+  api_secret: HUH8IPYSmoBHHrSAJgY3JoDOHGQ
+  enhance_image_tag: true
+  static_file_support: false
