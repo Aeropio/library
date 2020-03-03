@@ -80,7 +80,8 @@
       <tbody>
         <% @users.each do |user| %>
       <tr>
-        <td><%= user.first_name %></td>
+        <% full_name = user.first_name+" "+user.last_name%>
+        <td><%= full_name %></td>
         <td><%= user.phone_number %></td>
         <td><%= user.email %></td>
         
@@ -93,7 +94,7 @@
           <td></td>
         <%else%>
           <%if user.has_property || user.in_school%>
-            <td><img src="<%= asset_path 'Resident-Yellow.png' %>"></td>
+            <td><img src="<%= asset_path 'nonlocal.png' %>"></td>
           <td><img src="<%= asset_path 'View.png' %>" data-toggle="modal" data-target="#myModal_id_proof" onclick="$('#disply_image').attr('src','<%=user.identity_number.url%>')"></td>
           <td><img src="<%= asset_path 'yellowview.png' %>" data-toggle="modal" data-target="#property_or_school_proof" onclick="$('#disply_image_for_qualified').attr('src','<%=user.address_proof.url%>')"></td>
           <%else%>
