@@ -121,7 +121,7 @@ $('#submit_success_show').click();
       <div class="col-sm-9">
         <div class="row Margin-none">
           <div class="col-sm-6">
-            <input name="user[identity_number]" id="upload_state_card_button" value="UPLOAD CARD"  type="file" required="true" onchange="validateFiles(this);", data="{ max_file_size: 1.megabyte }">&nbsp;<span id="address_proof_file_name">(proof of home address)</span>
+            <input name="user[identity_number]" id="upload_state_card_button" value="UPLOAD CARD"  hidden_field="identity_number_cache" type="file" required="true" ref="file" accept="image/*" onchange="validateFiles(this);", data="{ max_file_size: 1.megabyte }">&nbsp;<span id="address_proof_file_name">(proof of home address)</span>
           </div>
         </div>
       </div>

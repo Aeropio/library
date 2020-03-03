@@ -65,6 +65,10 @@ config.action_mailer.smtp_settings = {
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  CarrierWave.configure do |config|  
+     config.cache_storage = :file  
+  end
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
