@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'users/approved_users_list' => 'users#approved_users_list', as: :approved_users_list
   get 'users/rejected_users_list' => 'users#rejected_users_list', as: :rejected_users_list
   get 'users/pending_users_list' => 'users#pending_users_list', as: :pending_users_list
+
+   get 'users/metabase' => 'users#metabase', as: :metabase
+   get 'users/completed_work_units' => 'users#completed_work_units', as: :completed_work_units
   
   resources :users 
 

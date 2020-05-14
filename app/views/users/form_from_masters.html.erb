@@ -1,0 +1,341 @@
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js">
+</script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script>
+$(function() {
+$("#datepicker").datepicker({ dateFormat: "mm-dd-yy" }).val();
+try{
+$("#user_signup_form").validate();
+}catch(e){}
+});
+</script>
+
+
+<div class="Divforall">
+  <h3 class="H3">Apply for a Library Card</h3>
+  <!--White Block-->
+  <div class="White-Block">
+    <!--Personal Information section-->
+    <%= form_with(model: user, local: true, html: { multipart: true, id: "user_signup_form"}) do |form| %>
+    <h5 class="H5">Personal Information section</h5>
+    <div class="Section-Div">
+      <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h4 class="error_messages_from_backend">Form could not be submitted</h4>
+        <% error_messages_arr = [] %>
+        <% user.errors.full_messages.each do |message| %>
+        <% if message.include? "has already been taken" %>
+        <% end_index = message.index("has already been taken") %>
+        <% linked_to = message[0..end_index-2] %>
+        <% mes_to_show = "You already have Library Card linked to your #{linked_to}, please get a duplicate card from the library." %>
+        <% error_messages_arr<< mes_to_show%>
+        <%break%>
+        <% else  %>
+        <%error_messages_arr<< message %>
+        <% end  %>
+        <% end %>
+        <% if error_messages_arr.present? %>
+        <%error_message = error_messages_arr.first%>
+        <% flash[:alert] = error_message %>
+        <div class="alert alert-info error_messages_from_backend">
+          <%= flash[:alert] %>
+        </div>
+        <% end %>
+      </div>
+      <% else %>
+      <% flash[:alert] = "Application was Successfully Submitted" %>
+      <% end %>
+      <div class="row Margin-none Margin-Bottom-20">
+        <div class="col-sm-3 Form-Text">Full Name</div>
+        <div class="col-sm-9">
+          <div class="row Margin-none">
+            <div class="col-sm-4 Margin-Bottom-20-1"><%= form.text_field :first_name , class: "Text-box",id: "first_name", placeholder: "First Name*", required: true%></div>
+            <div class="col-sm-4 Margin-Bottom-20-1"><%= form.text_field :middle_name , class: "Text-box", placeholder: "Middle Name"%></div>
+            <div class="col-sm-4"><%= form.text_field :last_name , class: "Text-box", placeholder: "Last Name*",required: true%></div>
+          </div>
+        </div>
+      </div>
+      <div class="row Margin-none Margin-Bottom-20">
+        <div class="col-sm-3 Form-Text">Contact Details*</div>
+        <div class="col-sm-9">
+          <div class="row Margin-none">
+            <div class="col-sm-4 Margin-Bottom-20-1">
+              <%= form.text_field :phone_number , class: "Text-box", type: "number", maxlength: "10", minlength:"10",placeholder: "Mobile #", required: true%>
+            </div>
+            <div class="col-sm-8">
+              <%= form.text_field :email , class: "Text-box email", placeholder: "Email Address", required: true%>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row Margin-none Margin-Bottom-20">
+        <div class="col-sm-3 Form-Text">Date of Birth*</div>
+        <div class="col-sm-9">
+          <div class="row Margin-none">
+            <div class="col-sm-3 Margin-Bottom-20-1">
+              <!--
+              -->
+              <input type="text" placeholder="mm-dd-yyyy" id="datepicker" class="Text-box" name=user[dob] onchange="cal_fees();" required="true"/>
+              <div class="col-sm-2">
+              <img src="img/Date.png" alt="" style="padding-top:10px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row Margin-none Margin-Bottom-20">
+        <div class="col-sm-3 Form-Text">Home Address</div>
+        <div class="col-sm-9">
+          <div class="row Margin-none Margin-Bottom-20">
+            <div class="col-sm-8 Margin-Bottom-20-1"><%= form.text_field :home_address , class: "Text-box", placeholder: "Street Address*", required: true%></div>
+            <div class="col-sm-4"><%= form.text_field :unit_number , class: "Text-box", placeholder: "Apt/Unit Number"%></div>
+          </div>
+          <div class="row Margin-none  Margin-Bottom-20">
+            <div class="col-sm-4 Margin-Bottom-20-1"><%= form.text_field :city , class: "Text-box", placeholder: "City*", required: true%></div>
+            <div class="col-sm-4 Margin-Bottom-20-1"><select name="user[state]" class="Text-box", required="true">
+              <option value="" selected="selected">- State -</option><option value="NC">North Carolina</option><option value="SC">South Carolina</option><option value=" ">---</option><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
+            </select></div>
+            <div class="col-sm-4"><input name="user[zip]" type="number" value="ZIP" id="zip_code" minlength="5" maxlength="7" placeholder="ZIP*" class="Text-box" onkeyup="checkZipStatus();", required="true">
+            <input name="user[is_local]" type="hidden"  id="user_is_local" >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row Margin-none Margin-Bottom-20">
+      <div class="col-sm-3 Form-Text">State ID Card Number*</div>
+      <div class="col-sm-9">
+        <div class="row Margin-none">
+          <div class="col-sm-4 Margin-Bottom-20-1">
+            <%= form.text_field :state_id_card_number , class: "Text-box", placeholder: "Card Number*", required: true%>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row Margin-none Margin-Bottom-20">
+      <div class="col-sm-3 Form-Text">State ID Card*</div>
+      <div class="col-sm-9">
+        <div class="row Margin-none">
+          <div class="col-sm-6">
+            <input name="user[identity_number]" id="upload_state_card_button" value="UPLOAD CARD"  type="file" required="true" onchange="validateFilesidproof(this);", data="{ max_file_size: 1.megabyte }">&nbsp;<span id="address_proof_file_name">(proof of home address)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Personal Information section End-->
+  <!--Library Information section-->
+  <h5 class="H5">Library Information section</h5>
+  <div class="Section-Div">
+    <div class="row Margin-none Margin-Bottom-20">
+      <div class="col-sm-3 Form-Text">Primary Branch*</div>
+      <div class="col-sm-9">
+        <div class="row Margin-none">
+          <div class="col-sm-6">
+            <select name="user[primary_branch]" class="Text-box" required="true">
+              <option value="" selected="selected">- Select -</option><option value="bfr">Beatties Ford Road Library</option><option value="cor">Cornelius Library</option><option value="d">Davidson Library</option><option value="hg">Hickory Grove Library</option><option value="ib">Independence Regional Library</option><option value="img">Imaginon</option><option value="mh">Mint Hill Library</option><option value="ml">Main Library</option><option value="mor">Morrison Library</option><option value="mpk">Myers Park Library</option><option value="ms">Matthews Library</option><option value="mti">Mountain Island Library</option><option value="nco">North County Regional</option><option value="pm">Plaza-Midwood Library</option><option value="sc">Scaleybark Library</option><option value="sor">South County Library</option><option value="st">Steele Creek Library</option><option value="sug">Sugar Creek Library</option><option value="uc">University City Library</option><option value="wbl">West Boulevard Library</option><option value="other">Other/Not listed</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row Margin-none Margin-Bottom-20">
+      <div class="col-sm-3 Form-Text">How would you like to receive Notification</div>
+      <div class="col-sm-9">
+        <div class="row Margin-none">
+          <div class="col-sm-2"><input name="notification" type="radio" value="" checked="checked" ><label class="Form-Text1">Email</label></div>
+          <div class="col-sm-3"><input name="notification" type="radio" value=""><label class="Form-Text1">Mobile SMS</label></div>
+        </div>
+      </div>
+    </div>
+    <div class="row Margin-none Margin-Bottom-20">
+      <div class="col-sm-3 Form-Text">How would you like to get Library Card</div>
+      <div class="col-sm-9">
+        <div class="row Margin-none">
+          <div class="col-sm-4"><input name="user[library_card_type]" type="radio" value="physical" checked="checked"
+            ><label class="Form-Text1">Physical (pick from library)  </label>
+          </div>
+          <div class="col-sm-4">
+            <input name="user[library_card_type]" type="radio" value="virtual"><label class="Form-Text1">Virtual (use mobile app) </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Library Information section End-->
+  <!--Non-Resident Card section-->
+  <div id="non_resident_form_fields" style="display: none;">
+    <h5 class="H5">Non-Resident Card section</h5>
+    <div class="Section-Div">
+      <div class="row Margin-none Margin-Bottom-20">
+        <div class="col-sm-3 Form-Text">Do you own property in Mecklenburg County</div>
+        <div class="col-sm-9">
+          <div class="row Margin-none">
+            <div class="col-sm-3"><label class="switch switch-left-right">
+              <input class="switch-input" type="checkbox" id="has_property"  onchange="hide_fees_n_show_upload();" />
+              <input type="hidden" id="has_property_value" value="0" name="user[has_property]"/>
+              <span class="switch-label" data-on="Yes" data-off="No"></span> <span class="switch-handle"></span> </label></div>
+            </div>
+          </div>
+        </div>
+        <div class="row Margin-none Margin-Bottom-20">
+          <div class="col-sm-3 Form-Text">Are you enrolled in any private or public school in Mecklenburg County</div>
+          <div class="col-sm-9">
+            <div class="row Margin-none">
+              <div class="col-sm-3"><label class="switch switch-left-right">
+                <input class="switch-input" id="is_enrolled" type="checkbox" onchange="hide_fees_n_show_upload();"/>
+                <input type="hidden" id="is_enrolled_value" value="0" name="user[in_school]"/>
+                <span class="switch-label" data-on="Yes" data-off="No"></span> <span class="switch-handle"></span> </label></div>
+              </div>
+            </div>
+          </div>
+          <div class="row Margin-none Margin-Bottom-20" id="annual_fees_section">
+            <div class="col-sm-3 Form-Text">Annual Fees</div>
+            <div class="col-sm-9">
+              <div class="row Margin-none">
+                <div class="col-sm-4"><label class="Form-Text1"> <span id="annual_fees_calc">$45</span></label></div>
+              </div>
+            </div>
+          </div>
+          <div class="row Margin-none Margin-Bottom-20" style="display: none;" id="is_school_or_prop">
+            <div class="col-sm-3 Form-Text">Upload Proof of Property/School ID Card*</div>
+            <div class="col-sm-9">
+              <div class="row Margin-none">
+                <div class="col-sm-6">
+                  <input name="user[address_proof]" id="upload_school_card_button" value="UPLOAD CARD"  type="file" onchange="validateFiles(this);", data="{ max_file_size: 1.megabyte }">&nbsp;<span id="school_proof_file_name"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="row Margin-none">
+          <div class="col-sm-6"><%= form.submit "Submit", class: "Submit"%></div>
+          <div class="col-sm-6"><a href="#" class="Cancel">Cancel</a></div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <% end %>
+  </div>
+  <!--Form Body End-->
+  <script type="text/javascript">
+  function checkZipStatus(){
+  var zip_code=$('#zip_code').val();
+  if(zip_code.length>=5)
+  {
+  $.ajax({
+  type:'get',
+  dataType:"json",
+  url:'/users/get_county_name?zip='+zip_code,
+  success: function(data) {
+  if(!data.is_county){
+  $('#non_resident_form_fields').show();
+  // $('#is_school_or_prop').hide();
+  $('#user_is_local').val(0);
+  }
+  else{
+  $('#non_resident_form_fields').hide();
+  $('#user_is_local').val(1);
+  }
+  }
+  })
+  }
+  else{
+  $('#non_resident_form_fields').hide();
+  $('#user_is_local').val(1);
+  }
+  }
+  function cal_fees(){
+  //calculate age from dob
+  var birthDate=$('#datepicker').val();
+  //calculate age from dob_val
+  // var mdate = birthDate.toString();
+  // var yearThen = parseInt(mdate.substring(0,4), 10);
+  // var monthThen = parseInt(mdate.substring(5,7), 10);
+  // var dayThen = parseInt(mdate.substring(8,10), 10);
+  
+  // var today = new Date();
+  // var birthday = new Date(yearThen, monthThen-1, dayThen);
+  // var age = today.getFullYear() - birthday.getFullYear();
+  // var total_fees = "$0"
+  //$45 (if age less than 62), $35 (is age is 62 or above), $0 (if yes above)
+  var birth_year = parseInt(birthDate.substring(6,10));
+  var curr_year = 2020
+  var age = curr_year-birth_year;
+  if(age>=62){
+  total_fees = "$35"
+  }
+  else{
+  total_fees = "$45"
+  }
+  $('#annual_fees_calc').html(total_fees);
+  }
+  function hide_fees_n_show_upload(){
+  var has_prop=$('#has_property').is(':checked');
+  var is_enr=$('#is_enrolled').is(':checked');
+  if(has_prop || is_enr)
+  {
+  $('#annual_fees_section').hide();
+  $('#is_school_or_prop').show();
+  if(has_prop)
+  {
+  $('#has_property_value').val(1);
+  }
+  if(is_enr)
+  {
+  $('#is_enrolled_value').val(1);
+  }
+  }
+  else
+  {
+  $('#annual_fees_section').show();
+  $('#is_school_or_prop').hide();
+  $('#has_property_value').val(0);
+  $('#is_enrolled_value').val(0);
+  }
+  }
+  // $(function(){
+  // $("#user_signup_form").validate();
+  // });
+  function validateFilesidproof(inputFile) {
+  var maxExceededMessage = "This file exceeds the maximum allowed file size (1 MB)";
+  var extErrorMessage = "Only image file with extension: .jpg, .jpeg, .gif or .png is allowed";
+  var allowedExtension = ["jpg", "jpeg", "gif", "png"];
+  var extName;
+  var maxFileSize = $(inputFile).data('max-file-size');
+  var sizeExceeded = false;
+  var ext = $('#upload_state_card_button').val().split('.').pop().toLowerCase();
+  if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+  window.alert(extErrorMessage);
+  $(this).val('');
+  }
+  if(inputFile.files[0].size > 1000000) {
+  window.alert(maxExceededMessage);
+  $(this).val('');
+  }
+  }
+  function validateFiles(inputFile) {
+  var maxExceededMessage = "This file exceeds the maximum allowed file size (1 MB)";
+  var extErrorMessage = "Only image file with extension: .jpg, .jpeg, .gif or .png is allowed";
+  var allowedExtension = ["jpg", "jpeg", "gif", "png"];
+  var extName;
+  var maxFileSize = $(inputFile).data('max-file-size');
+  var sizeExceeded = false;
+  var ext = $('#upload_school_card_button').val().split('.').pop().toLowerCase();
+  if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+  window.alert(extErrorMessage);
+  $(this).val('');
+  }
+  if(inputFile.files[0].size > 1000000) {
+  window.alert(maxExceededMessage);
+  $(this).val('');
+  }
+  }
+  // function dob_formatt() {
+  //   $("#dob_val").datepicker({ dateFormat: "mm-dd-yyyy" }).val();
+  // }
+  </script>

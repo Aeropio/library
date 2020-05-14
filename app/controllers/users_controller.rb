@@ -1,11 +1,19 @@
+require 'jwt'
+
+
 class UsersController < ApplicationController
   before_action :authenticate_admin!, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   #after_action :update_local_non_local_attributes,  only: [:create, :edit, :update]
 
 
+  # you will need to install 'jwt' gem first via 'gem install jwt' or in your project Gemfile
+
+
   # GET /users
   # GET /users.json
+   METABASE_SITE_URL = "http://localhost:13663"
+  METABASE_SECRET_KEY = "827518359bc24650fc1de36c3eab833126cae94e2346de9cec58c9a2707d940c"
   def index
         @status = 'pending'
 
@@ -37,6 +45,32 @@ class UsersController < ApplicationController
      format.html { render :index , locals: {status: "Pending"}}
      format.json { head :no_content }
     end
+  end
+
+  def metabase
+    payload = {
+      :resource => {:question => 1},
+      :params => {
+        
+      },
+      :exp => Time.now.to_i + (60 * 10) # 10 minute expiration
+    }
+    token = JWT.encode payload, METABASE_SECRET_KEY
+
+    @iframe_url = METABASE_SITE_URL + "/embed/question/" + token + "#bordered=true&titled=true"
+  end
+
+  def completed_work_units
+    payload = {
+      :resource => {:question => 4},
+      :params => {
+        
+      },
+      :exp => Time.now.to_i + (60 * 10) # 10 minute expiration
+    }
+    token = JWT.encode payload, METABASE_SECRET_KEY
+
+    @iframe_url = METABASE_SITE_URL + "/embed/question/" + token + "#bordered=true&titled=true"
   end
 
   # GET /users/1

@@ -1,0 +1,5 @@
+  <%= form.hidden_field(:identity_number_cache)%>
+            <%= form.file_field(:identity_number)%>
+
+
+            <%= image_tag(user.identity_number_url, :alt => "IMG") %>
